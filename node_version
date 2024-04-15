@@ -1,0 +1,10 @@
+#!/bin/bash
+echo '<<<node_version>>>'
+nvm_dir=$(cat /usr/lib/check_mk_agent/local/node_version.cfg)
+node_versions=$(ls -x $nvm_dir)
+# echo "$node_versions"
+for i in $node_versions
+do
+	short_vers=$(echo "$i" | cut -d "." -f 1)
+	echo "$short_vers $i"
+done
