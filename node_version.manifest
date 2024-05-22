@@ -6,7 +6,7 @@
            'web': ['plugins/wato/node_version_parameters.py']},
  'name': 'node_version',
  'title': 'Node version checker',
- 'version': '1.0.0',
+ 'version': '1.0.1',
  'version.min_required': '2.2.0p23',
- 'version.packaged': '2.2.0p23',
+ 'version.packaged': '2.2.3',
  'version.usable_until': None}
