@@ -104,9 +104,10 @@ def check_node_version(item, params, section):
         cache_version=json.loads(file.read())
 
     # put all the CVEs in a list to print in the service summary
-    list_cve=list()
-    for value in cache_version[version_short]['cve']:
-        list_cve.append(value+", https://cve.mitre.org/cgi-bin/cvename.cgi?name="+value+" ")
+    if "cve" in cache_version[version_short]:
+        list_cve=list()
+        for value in cache_version[version_short]['cve']:
+            list_cve.append(value+", https://cve.mitre.org/cgi-bin/cvename.cgi?name="+value+" ")
 
     # handling of service states
     if version_short in cache_version:
