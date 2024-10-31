@@ -85,7 +85,7 @@ def check_node_version(item, params, section):
     api_key=params["api_key"]
     host_version=section.get(item)
     if not host_version:
-        yield Result(state=State.CRIT, summary="Node isn't intalled on this host!")
+        yield Result(state=State.UNKNOWN, summary="Node isn't intalled on this host!")
         return
 
     # only call the api_call function if the cache is outdated
