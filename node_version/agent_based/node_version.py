@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .agent_based_api.v1 import check_levels, Metric, register, Result, Service, State
+from cmk.agent_based.v2 import AgentSection, CheckPlugin, Service, Result, State, Metric, check_levels
 import requests, time, os.path, json
 from requests.auth import HTTPBasicAuth
 
@@ -82,6 +82,7 @@ def discover_node_version(section):
 
 #check function
 def check_node_version(item, params, section):
+    print(params)
     api_key=params["api_key"]
     host_version=section.get(item)
     if not host_version:
@@ -121,12 +122,12 @@ def check_node_version(item, params, section):
     else:
         yield Result(state=State.UNKNOWN, summary=f"This version does not exist in the cache.")
 
-register.agent_section(
+agent_section_node_version = AgentSection(
     name = "node_version",
     parse_function = parse_node_version,
 )
 
-register.check_plugin(
+check_plugin_node_version = CheckPlugin(
     name = "node_version",
     sections = ["node_version"],
     service_name = "Node version %s",
