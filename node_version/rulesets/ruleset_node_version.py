@@ -18,8 +18,8 @@ def _parameter_form():
 
 rule_spec_node_version = CheckParameters(
     name = "node_version",
-    group = RulespecGroupCheckParametersApplications,
-    match_type = "dict",
-    parameter_valuespec = _parameter_valuespec_node_version,
+    title = Title("Node version parameters"),
+    topic = Topic.GENERAL,
+    parameter_form = _parameter_form,
     condition = HostAndItemCondition(item_title=Title("Node version parameters"))
 )
