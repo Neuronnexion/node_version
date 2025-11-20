@@ -8,11 +8,10 @@ def _parameter_form():
     return Dictionary(
         elements = {
             "api_key": DictElement(
+                required = True,
                 parameter_form=Password(
                     title=Title("newreleases.io API key"),
-                ),
-                required = True,
-            ),
+                )),
         }
     )
 
