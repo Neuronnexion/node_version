@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 
-from cmk.rulesets.v1 import Title
-from cmk.rulesets.v1.form_specs import (
-    DictElement,
-    Dictionary,
-    Password,
-    validators,
-)
-from cmk.rulesets.v1.rule_specs import CheckParameters, HostCondition, Topic
+from cmk.rulesets.v1 import Label, Title
+from cmk.rulesets.v1.form_specs import BooleanChoice, DefaultValue, DictElement, Dictionary, Float, LevelDirection, SimpleLevels, Password, validators
+from cmk.rulesets.v1.rule_specs import CheckParameters, HostAndItemCondition, Topic
+
 
 def _parameter_valuespec_node_version():
     return Dictionary(
@@ -26,6 +22,6 @@ rule_spec_node_version = CheckParameters(
     name = "node_version",
     title = Title("Node version parameters"),
     topic = Topic.GENERAL,
-    parameter_form = _parameter_valuespec_node_version,
+    parameter_form = _parameter_form,
     condition = HostAndItemCondition(item_title=Title("Node version parameters"))
 )
