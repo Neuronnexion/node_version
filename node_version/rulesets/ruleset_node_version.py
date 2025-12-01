@@ -22,6 +22,6 @@ rule_spec_node_version = CheckParameters(
     name = "node_version",
     title = Title("Node version parameters"),
     topic = Topic.GENERAL,
-    parameter_form = _parameter_form,
+    parameter_form = _parameter_valuespec_node_version,
     condition = HostAndItemCondition(item_title=Title("Node version parameters"))
 )
