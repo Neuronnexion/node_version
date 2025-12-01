@@ -9,10 +9,9 @@ def _parameter_valuespec_node_version():
     return Dictionary(
         elements={
             "api_key": DictElement(
-                required=False,
+                required=True,
                 parameter_form=Password(
                     title=Title("newreleases.io API key"),
-                    custom_validate=(validators.LengthInRange(min_value=1),),
                 ),
             )
         }
@@ -20,8 +19,8 @@ def _parameter_valuespec_node_version():
 
 rule_spec_node_version = CheckParameters(
     name = "node_version",
-    title = Title("Node version parameters"),
+    title = Title("Node version"),
     topic = Topic.GENERAL,
     parameter_form = _parameter_valuespec_node_version,
-    condition = HostAndItemCondition(item_title=Title("Node version parameters"))
+    condition = HostAndItemCondition(item_title=Title("Node version"))
 )
