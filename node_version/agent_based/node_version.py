@@ -16,7 +16,8 @@ def api_call(api_key):
     while True:
         response = requests.get(
             "https://api.newreleases.io/v1/projects/github/nodejs/node/releases",
-            auth = HTTPBasicAuth(api_key,""),
+            # the API key is in a tuple that's in a tuple
+            auth = HTTPBasicAuth(api_key[2][1],""),
             params={"page": page}
         )
         node_dict.update(response.json())
