@@ -50,13 +50,11 @@ def is_cache_old():
 # extract the latest versions for all major versions listed in the json retrived with the newreleases api, and put then in a sorted dict
 def sort_dict(node_dict, sorted_node_dict):
     for i in range(0, len(node_dict["releases"])):
-        # check if the version number has the words "alpha" or "beta" in it
-        testvers=node_dict["releases"][i]["version"].replace('.','')[1:]
-        # if it has, skip the version
-        # we're not handling alpha or beta versions right now
-        if "alpha" or "beta" in testvers:
+        # check if the version number has words in it
+        try:
+            testvers=int(node_dict["releases"][i]["version"].replace('.','')[1:])
+        except ValueError:
             pass
-        # if it hasn't, proceed as usual
         else:
             # get the major version for each version number (ie for "v20.7.2", get "v20")
             version_short=str(node_dict["releases"][i]["version"].split('.')[0])
