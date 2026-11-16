@@ -50,23 +50,31 @@ def is_cache_old():
 # extract the latest versions for all major versions listed in the json retrived with the newreleases api, and put then in a sorted dict
 def sort_dict(node_dict, sorted_node_dict):
     for i in range(0, len(node_dict["releases"])):
-        # get the major version for each version number (ie for "v20.7.2", get "v20")
-        version_short=str(node_dict["releases"][i]["version"].split('.')[0])
-        # check sorted_node_dict is empty
-        if sorted_node_dict:
-            # if a major version isn't present in the sorted dict, put the current dict line in here
-            if version_short not in sorted_node_dict:
-                sorted_node_dict.update({version_short: node_dict["releases"][i]})
-            # if a major version is in the sorted dict, but the full version number is lesser than version number in the current dict line,
-            # remove that dict line and replace it by the current dict line
-            else:
-                version_current=int(node_dict["releases"][i]["version"].replace('.','')[1:])
-                version_sorted=int(sorted_node_dict[version_short]["version"].replace('.','')[1:])
-                if version_current > version_sorted:
-                    sorted_node_dict.pop(version_short)
-                    sorted_node_dict.update({version_short: node_dict["releases"][i]})
+        # check if the version number has the words "alpha" or "beta" in it
+        testvers=node_dict["releases"][i]["version"].replace('.','')[1:]
+        # if it has, skip the version
+        # we're not handling alpha or beta versions right now
+        if "alpha" or "beta" in testvers:
+            pass
+        # if it hasn't, proceed as usual
         else:
-            sorted_node_dict={version_short: node_dict["releases"][i]}
+            # get the major version for each version number (ie for "v20.7.2", get "v20")
+            version_short=str(node_dict["releases"][i]["version"].split('.')[0])
+            # check sorted_node_dict is empty
+            if sorted_node_dict:
+                # if a major version isn't present in the sorted dict, put the current dict line in here
+                if version_short not in sorted_node_dict:
+                    sorted_node_dict.update({version_short: node_dict["releases"][i]})
+                # if a major version is in the sorted dict, but the full version number is lesser than version number in the current dict line,
+                # remove that dict line and replace it by the current dict line
+                else:
+                    version_current=int(node_dict["releases"][i]["version"].replace('.','')[1:])
+                    version_sorted=int(sorted_node_dict[version_short]["version"].replace('.','')[1:])
+                    if version_current > version_sorted:
+                        sorted_node_dict.pop(version_short)
+                        sorted_node_dict.update({version_short: node_dict["releases"][i]})
+            else:
+                sorted_node_dict={version_short: node_dict["releases"][i]}
     return sorted_node_dict
 
 # parse function
